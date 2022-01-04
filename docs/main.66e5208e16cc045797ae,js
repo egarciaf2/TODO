@@ -177,8 +177,7 @@ var listarTodos = function listarTodos() {
   todoList.todos.forEach(function (todo) {
     return crearTodoHtml(todo);
   }); // todoList.todos.forEach( crearTodoHtml )  Esto es exactamente lo mismo que la linea de arriba
-};
-0; //EVENTOS
+}; //EVENTOS
 
 txtInput.addEventListener('keyup', function (event) {
   if (event.keyCode === 13 && txtInput.value.length > 0) {
