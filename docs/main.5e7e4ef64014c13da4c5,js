@@ -1,0 +1,265 @@
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "L": () => (/* binding */ todoList)
+});
+
+;// CONCATENATED MODULE: ./src/class/todo.class.js
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var Todo = /*#__PURE__*/function () {
+  function Todo(tarea) {
+    _classCallCheck(this, Todo);
+
+    this.tarea = tarea;
+    this.id = new Date().getTime() + Math.random();
+    this.completado = false;
+    this.creado = new Date();
+  }
+
+  _createClass(Todo, null, [{
+    key: "fromJson",
+    value: //Convierte los objetos obtenidos del localStorage en instancias de la clase
+    function fromJson(_ref) {
+      var id = _ref.id,
+          tarea = _ref.tarea,
+          completado = _ref.completado,
+          creado = _ref.creado;
+      var tempTodo = new Todo(tarea);
+      tempTodo.id = id;
+      tempTodo.completado = completado;
+      tempTodo.creado = creado;
+      return tempTodo;
+    }
+  }]);
+
+  return Todo;
+}();
+;// CONCATENATED MODULE: ./src/class/todo-list.class.js
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function todo_list_class_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function todo_list_class_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function todo_list_class_createClass(Constructor, protoProps, staticProps) { if (protoProps) todo_list_class_defineProperties(Constructor.prototype, protoProps); if (staticProps) todo_list_class_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+
+var TodoList = /*#__PURE__*/function () {
+  function TodoList() {
+    todo_list_class_classCallCheck(this, TodoList);
+
+    this.cargarLocalStorage();
+  }
+
+  todo_list_class_createClass(TodoList, [{
+    key: "nuevoTodo",
+    value: function nuevoTodo(todo) {
+      this.todos.push(todo);
+      this.guardarLocalStorage();
+    }
+  }, {
+    key: "eliminarTodo",
+    value: function eliminarTodo(id) {
+      this.todos = this.todos.filter(function (todo) {
+        return todo.id != id;
+      });
+      this.guardarLocalStorage();
+    }
+  }, {
+    key: "marcarCompletado",
+    value: function marcarCompletado(id) {
+      var _iterator = _createForOfIteratorHelper(this.todos),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var todo = _step.value;
+
+          if (todo.id == id) {
+            todo.completado = !todo.completado;
+            this.guardarLocalStorage();
+            break;
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    }
+  }, {
+    key: "eliminarCompletados",
+    value: function eliminarCompletados() {
+      this.todos = this.todos.filter(function (todo) {
+        return !todo.completado;
+      });
+      this.guardarLocalStorage();
+    }
+  }, {
+    key: "guardarLocalStorage",
+    value: function guardarLocalStorage() {
+      localStorage.setItem('todos', JSON.stringify(this.todos));
+    }
+  }, {
+    key: "cargarLocalStorage",
+    value: function cargarLocalStorage() {
+      this.todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
+      this.todos = this.todos.map(Todo.fromJson);
+    }
+  }]);
+
+  return TodoList;
+}();
+;// CONCATENATED MODULE: ./src/js/components.js
+function components_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = components_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function components_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return components_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return components_arrayLikeToArray(o, minLen); }
+
+function components_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+ // REFERENCIAS EN HTML 
+
+var divTodoList = document.querySelector('.todo-list');
+var txtInput = document.querySelector('.new-todo');
+var btnBorrar = document.querySelector('.clear-completed');
+var ulFilters = document.querySelector('.filters');
+var achorFilters = document.querySelectorAll('.filtro');
+var crearTodoHtml = function crearTodoHtml(todo) {
+  var htmlTodo = "\n        <li class=\"".concat(todo.completado ? 'completed' : '', "\" data-id=\"").concat(todo.id, "\">.\n            <div class=\"view\">\n                <input class=\"toggle\" type=\"checkbox\" ").concat(todo.completado ? 'checked' : '', ">\n                <label>").concat(todo.tarea, "</label>\n                <button class=\"destroy\"></button>\n            </div>\n            <input class=\"edit\" value=\"Create a TodoMVC template\">\n        </li>");
+  var div = document.createElement('div');
+  div.innerHTML = htmlTodo; //firstElementChild Retorna el primer hijo, asi no imprime el div
+
+  divTodoList.append(div.firstElementChild);
+  return div;
+};
+var listarTodos = function listarTodos() {
+  //Elimina los compontenes que tiene el input
+  while (divTodoList.firstChild) {
+    divTodoList.removeChild(divTodoList.firstChild);
+  } //Imprime todos los todo del array
+
+
+  todoList.todos.forEach(function (todo) {
+    return crearTodoHtml(todo);
+  }); // todoList.todos.forEach( crearTodoHtml )  Esto es exactamente lo mismo que la linea de arriba
+};
+0; //EVENTOS
+
+txtInput.addEventListener('keyup', function (event) {
+  if (event.key === 'Enter' && txtInput.value.length > 0) {
+    var newTodo = new Todo(txtInput.value);
+    todoList.nuevoTodo(newTodo);
+    listarTodos();
+    txtInput.value = '';
+  }
+});
+divTodoList.addEventListener('click', function (event) {
+  var nombreElemento = event.target.localName;
+  var todoElemento = event.target.parentElement.parentElement;
+  var todoId = todoElemento.getAttribute('data-id');
+
+  if (nombreElemento.includes('input')) {
+    //Click en el check
+    todoList.marcarCompletado(todoId);
+    todoElemento.classList.toggle('completed');
+  } else if (nombreElemento.includes('button')) {
+    //Borrar tarea
+    todoList.eliminarTodo(todoId);
+    listarTodos();
+  }
+});
+btnBorrar.addEventListener('click', function () {
+  todoList.eliminarCompletados();
+  listarTodos();
+});
+ulFilters.addEventListener('click', function (event) {
+  var filtro = event.target.text;
+
+  if (!filtro) {
+    return;
+  }
+
+  achorFilters.forEach(function (elem) {
+    return elem.classList.remove('selected');
+  });
+  event.target.classList.add('selected');
+
+  var _iterator = components_createForOfIteratorHelper(divTodoList.children),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var elemento = _step.value;
+      elemento.classList.remove('hidden');
+      var completado = elemento.classList.contains('completed');
+
+      switch (filtro) {
+        case 'Pendientes':
+          if (completado) {
+            elemento.classList.add('hidden');
+          }
+
+          break;
+
+        case 'Completados':
+          if (!completado) {
+            elemento.classList.add('hidden');
+          }
+
+          break;
+
+        default:
+          break;
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+});
+;// CONCATENATED MODULE: ./src/index.js
+//STYLES
+
+
+
+var todoList = new TodoList();
+console.log(todoList);
+listarTodos();
+/******/ })()
+;
