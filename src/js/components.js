@@ -47,7 +47,7 @@ export const listarTodos = () => {
 
 //EVENTOS
 txtInput.addEventListener('keyup', ( event ) => {
-    if(event.keyCode === 13 && txtInput.value.length > 0){
+    if(event.keyCode == 13 && txtInput.value.length > 0){
         const newTodo = new Todo( txtInput.value );
         todoList.nuevoTodo( newTodo );
         listarTodos();

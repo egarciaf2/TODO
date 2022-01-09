@@ -180,7 +180,7 @@ var listarTodos = function listarTodos() {
 }; //EVENTOS
 
 txtInput.addEventListener('keyup', function (event) {
-  if (event.keyCode === 13 && txtInput.value.length > 0) {
+  if (event.keyCode == 13 && txtInput.value.length > 0) {
     var newTodo = new Todo(txtInput.value);
     todoList.nuevoTodo(newTodo);
     listarTodos();
